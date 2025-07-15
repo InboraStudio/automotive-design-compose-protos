@@ -19,14 +19,14 @@ import "google/protobuf/empty.proto";
 
 package designcompose.definition.animation;
 
-// Corresponds to crates/framework/customizations/src/lib.rs:AnimationSpec
+// Animation specification.
 message AnimationSpec {
     optional google.protobuf.Duration initial_delay = 1;
     Animations animation = 2;
     optional StopType interrupt_type = 3;
 }
 
-// Corresponds to crates/framework/harry-animation/src/api.rs:StopType
+// Specifies how to interrupt in-progress animations.
 message StopType {
     oneof type {
         google.protobuf.Empty reset_to_start = 1;
@@ -36,7 +36,7 @@ message StopType {
     }
 }
 
-// Corresponds to crates/framework/harry-animation/src/animations.rs:Animations
+// Animation types
 message Animations {
     oneof type {
         SmoothAnimation smooth = 1;
@@ -44,20 +44,20 @@ message Animations {
     }
 }
 
-// Corresponds to crates/framework/harry-animation/src/smooth_animation.rs:SmoothAnimation
+// A smooth animation.
 message SmoothAnimation {
     google.protobuf.Duration duration = 1;
     RepeatType repeat_type = 2;
     Easing easing = 3;
 }
 
-// Corresponds to crates/framework/harry-animation/src/key_frame_animation.rs:KeyFrameAnimation
+// Animation consist of key frames.
 message KeyFrameAnimation {
     repeated KeyFrame steps = 1;
     RepeatType repeat_type = 2;
 }
 
-// Corresponds to crates/framework/harry-animation/src/api.rs:RepeatType
+// Specifies the animation repeat type.
 message RepeatType {
     oneof type {
         google.protobuf.Empty no_repeat = 1;
@@ -66,13 +66,13 @@ message RepeatType {
     }
 }
 
-// Corresponds to crates/framework/harry-animation/src/key_frame_animation.rs:KeyFrame
+// A key frame in a key frame animation.
 message KeyFrame {
     float value = 1;
     google.protobuf.Duration duration = 2;
 }
 
-// Corresponds to crates/framework/harry-animation/src/smooth_animation.rs:Easing
+// Configures the animation easing curve.
 message Easing {
     oneof type {
         google.protobuf.Empty linear = 1;
@@ -80,7 +80,7 @@ message Easing {
     }
 }
 
-// Corresponds to crates/framework/harry-animation/src/smooth_animation.rs:BezierCurve
+// A Bezier curve
 message BezierCurve {
     float p0 = 1;
     float p1 = 2;
@@ -88,6 +88,10 @@ message BezierCurve {
     float p3 = 4;
 }
 
+// The main override type.
+// - no_override: to use the default
+// - disable_animations: to disregard any default animations
+// - custom: specify a custom AnimationSpec
 message AnimationOverride {
     oneof animation_override {
         google.protobuf.Empty no_override = 1;
