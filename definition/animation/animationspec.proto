@@ -61,7 +61,7 @@ message KeyFrameAnimation {
 message RepeatType {
     oneof type {
         google.protobuf.Empty no_repeat = 1;
-        uint32 repeat = 2; // Corresponds to Repeat(u32)
+        uint32 repeat = 2;
         google.protobuf.Empty loop_forever = 3;
     }
 }
